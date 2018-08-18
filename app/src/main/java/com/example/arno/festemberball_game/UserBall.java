@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
+import static com.example.arno.festemberball_game.GamePanel.ballSpeed;
+
 public class UserBall extends GameObject {
     private GamePanel gamePanel;
     private double theta;
@@ -22,9 +24,14 @@ public class UserBall extends GameObject {
     }
 
     public void update() {
-        theta = Math.toDegrees(theta);
-        theta = theta + GamePanel.ballSpeed;
-        theta = Math.toRadians(theta);
+
+                theta = Math.toDegrees(theta);
+                theta = theta + ballSpeed;
+                theta = Math.toRadians(theta);
+                ballSpeed = 0;
+
+
+
 
     }
 
@@ -43,7 +50,7 @@ public class UserBall extends GameObject {
 
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.RED);
-        canvas.drawCircle(x , y , radius , paint);
+        canvas.drawCircle(x, y, radius, paint);
 
     }
 }

@@ -21,7 +21,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     float tempX;
     float tempY;
 
-    public static int ballSpeed = 0;
+    public static double ballSpeed = 0;
 
     private UserBall userBall;
 
@@ -39,6 +39,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
+
         bg.draw(canvas);
         userBall.draw(canvas);
 
@@ -61,18 +62,47 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 return true;
 
             case MotionEvent.ACTION_MOVE:
-                if (tempX < user_x) {
-                    tempX = user_x;
-                    ballSpeed = -4;
+                if (user_y > this.getHeight() / 2) {
+                    if (tempX < user_x) {
 
-                } else if (tempX > user_x) {
-                    tempX = user_x;
-                    ballSpeed = 4;
+                        if(user_x - tempX < 1){
+                            ballSpeed = -1;
+                        }
+
+                        else if(user_x - tempX < 2){
+                            ballSpeed = -1.5;
+                        }
+
+                        else if (user_x - tempX < 3) {
+                            ballSpeed = -2;
+                        }else if (user_x - tempX > 3) {
+                            ballSpeed = -4;
+                        }
+                        tempX = user_x;
+
+
+                    } else if (tempX > user_x) {
+                        if(tempX - user_x < 1){
+                            ballSpeed = 1;
+                        }
+                        else if(tempX - user_x < 2){
+                            ballSpeed = 1.5;
+
+                        }
+                        else if (tempX - user_x < 3) {
+                            ballSpeed = 2;
+                        } else if (tempX - user_x > 3) {
+                            ballSpeed = 4;
+                        }
+                        tempX = user_x;
+                    }
+
                 }
+
                 return true;
 
             case MotionEvent.ACTION_UP:
-                    ballSpeed = 0;
+                ballSpeed = 0;
                 return true;
 
         }
