@@ -9,7 +9,7 @@ public abstract class GameObject {
     protected int y;
     protected int dx;
     protected int dy;
-    protected int radius;
+    protected double radius;
 
     public void setX(int x){
         this.x = x;

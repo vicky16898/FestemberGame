@@ -12,9 +12,7 @@ import android.view.SurfaceView;
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private BackGround bg;
-    public final static int moveSpeed = -5;
-    public int WIDTH;
-    public int HEIGHT;
+    public final static int moveSpeed = -10;
     //player
     float user_x;
     float user_y;
@@ -64,34 +62,46 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             case MotionEvent.ACTION_MOVE:
                 if (user_y > this.getHeight() / 2) {
                     if (tempX < user_x) {
-
-                        if(user_x - tempX < 1){
+                        if (user_x - tempX < 0.5) {
+                            ballSpeed = -0.25;
+                        } else if (user_x - tempX < 1) {
+                            ballSpeed = -0.5;
+                        } else if (user_x - tempX < 2) {
                             ballSpeed = -1;
+                        } else if (user_x - tempX < 2.5) {
+                            ballSpeed = -2.;
                         }
-
-                        else if(user_x - tempX < 2){
-                            ballSpeed = -1.5;
+                        else if(user_x - tempX < 3){
+                            ballSpeed = -2.5;
                         }
-
-                        else if (user_x - tempX < 3) {
-                            ballSpeed = -2;
-                        }else if (user_x - tempX > 3) {
+                        else if(user_x - tempX < 3.5){
+                           ballSpeed = -3;
+                       }
+                        else if (user_x - tempX > 3.5) {
                             ballSpeed = -4;
                         }
                         tempX = user_x;
 
 
                     } else if (tempX > user_x) {
-                        if(tempX - user_x < 1){
-                            ballSpeed = 1;
-                        }
-                        else if(tempX - user_x < 2){
-                            ballSpeed = 1.5;
 
-                        }
-                        else if (tempX - user_x < 3) {
+                        if (tempX - user_x < 0.5) {
+                            ballSpeed = 0.25;
+                        } else if (tempX - user_x < 1) {
+                            ballSpeed = 0.5;
+                        } else if (tempX - user_x < 2) {
+                            ballSpeed = 1;
+
+                        } else if (tempX - user_x < 2.5) {
                             ballSpeed = 2;
-                        } else if (tempX - user_x > 3) {
+                        }
+                        else if(tempX - user_x < 3){
+                            ballSpeed = 2.5;
+                        }
+                        else if(tempX - user_x < 3.5){
+                            ballSpeed = 3;
+                        }
+                        else if (tempX - user_x > 3.5) {
                             ballSpeed = 4;
                         }
                         tempX = user_x;
@@ -114,9 +124,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if (thread.getState() == Thread.State.TERMINATED) {
             thread = new MainThread(getHolder(), this);
         }
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-        WIDTH = bitmap.getWidth();
-        HEIGHT = bitmap.getHeight();
+        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.gamebackground);
         bg = new BackGround(bitmap, this);
         userBall = new UserBall(this);
         thread.setRunning(true);
